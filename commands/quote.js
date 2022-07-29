@@ -1,8 +1,9 @@
 const { SlashCommandBuilder } = require('discord.js');
-const homedir = require('os').homedir();
-// const fs = require('fs');
+// const homedir = require('os').homedir();
+// const fs = require('node:fs');
+// const path = require('node:path');
 
-console.log(homedir);
+// const rawpath = path.join(homedir, 'endbot');
 // const rawdata = fs.readFileSync(homedir + '/endbot/quotes.json');
 // const quotes = JSON.parse(rawdata);
 

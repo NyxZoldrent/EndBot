@@ -4,7 +4,9 @@ const path = require('node:path');
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 require('dotenv').config();
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
+const client = new Client({ intents: [
+	GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions,
+] });
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
@@ -31,6 +33,9 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+const quoteManagerPath = path.join(__dirname, 'quotes-manager.js');
+const { loadQuotes } = require(quoteManagerPath);
+
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
@@ -46,4 +51,5 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+loadQuotes();
 client.login(process.env.DISCORD_TOKEN);
