@@ -1,0 +1,19 @@
+{
+  "name": "endbot",
+  "version": "1.0.0",
+  "description": "A private discord bot written in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NyxZoldrent",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^1.0.1",
+    "discord.js": "^14.0.3",
+    "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.20.0"
+  }
+}
