@@ -9,7 +9,9 @@ module.exports = {
 		const userId = user.id;
 		const channelId = reaction.message.channelId;
 		const quote = reaction.message.content;
-		addQuote(guildId, userId, channelId, quote);
-		console.log(`added quote: guildId=${guildId}, userId=${userId}, channelId=${channelId}, quote=${quote}`);
+		const userAvatar = user.avatar;
+		const timestamp = reaction.message.createdTimestamp;
+		addQuote(guildId, userId, channelId, quote, userAvatar, timestamp);
+		console.log(`added quote: guildId=${guildId}, userId=${userId}, channelId=${channelId}, quote=${quote}, userAvatar=${userAvatar}, timestamp=${timestamp}`);
 	},
 };

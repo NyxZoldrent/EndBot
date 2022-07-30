@@ -29,6 +29,18 @@ function makeid(length) {
 
 let quotes = {};
 
+function createQuoteObject(guildId, channelId, userId, userAvatar, quoteId, timestamp, quote) {
+	return {
+		guild: guildId,
+		channel: channelId,
+		user: userId,
+		userAvatar: userAvatar,
+		quoteId: quoteId,
+		timestamp: timestamp,
+		quote: quote,
+	};
+}
+
 function loadQuotes() {
 	const filePath = getQuotesFilePath();
 	const rawData = fs.readFileSync(filePath);
@@ -48,23 +60,27 @@ function saveQuotes(quoteObj) {
  * @param {snowflake} channelId - the ID of the channel the quote is in
  * @param {string} content - the text being quoted
  */
-function addQuote(guildId, userId, channelId, content) {
+function addQuote(guildId, userId, channelId, content, userAvatar, timestamp) {
 	const id = makeid(8);
 
 	if (!Object.hasOwn(quotes, guildId)) {
-		quotes[guildId] = {};
+		quotes[guildId] = [];
 	}
 
-	quotes[guildId][id] = {
-		'user': userId,
-		'channel': channelId,
-		'quote': content,
-	};
+	quotes[guildId].push(createQuoteObject(guildId, channelId, userId, userAvatar, id, timestamp, content));
 
 	saveQuotes(quotes);
+}
+
+function getRandomQuote(guildId) {
+	const guildQuotes = quotes[guildId];
+	const randomQuote = guildQuotes[Math.floor(Math.random() * guildQuotes.length)];
+
+	return randomQuote;
 }
 
 module.exports = {
 	loadQuotes: loadQuotes,
 	addQuote: addQuote,
+	getRandomQuote: getRandomQuote,
 };
